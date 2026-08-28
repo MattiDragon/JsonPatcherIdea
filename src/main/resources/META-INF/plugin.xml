@@ -1,0 +1,43 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>dev.mattidragon.JsonPatcherIdea</id>
+    <name>JsonPatcher</name>
+    <vendor>MattiDragon</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
+    <description><![CDATA[
+        Provides basic support for the JsonPatcher programming language,
+        used primarily with the Minecraft mod with the same name.
+
+        This plugin is fairly minimal and mostly works by integrating the existing language server as well as
+        existing syntax highlighting grammars. This plugin only supports v2 of JsonPatcher; v1 support is not planned.
+
+        <h3>Key features</h3>
+        <ul>
+            <li>Syntax highlighting</li>
+            <li>Simple code completion</li>
+            <li>Type and syntax checking</li>
+            <li>Goto definition/usage</li>
+        </ul>
+
+        <h3>Links</h3>
+        <ul>
+            <li><a href="https://modrinth.com/mod/jsonpatcher">JsonPatcher Mod</a></li>
+            <li><a href="https://jsonpatcher-docs.mattidragon.dev/">Language Documentation</a></li>
+        </ul>
+        ]]></description>
+
+    <depends>com.intellij.modules.lsp</depends>
+    <depends>org.jetbrains.plugins.textmate</depends>
+
+    <resource-bundle>messages.JsonPatcherMessageBundle</resource-bundle>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <platform.lsp.integrationProvider implementation="dev.mattidragon.jsonpatcheridea.JsonPatcherLspIntegrationProvider"/>
+        <fileType name="JsonPatcher" language="JsonPatcher" extensions="jsonpatch"
+                  implementationClass="dev.mattidragon.jsonpatcheridea.JsonPatcherFileType"/>
+        <textmate.bundleProvider implementation="dev.mattidragon.jsonpatcheridea.JsonPatcherTextMateBundleProvider"/>
+    </extensions>
+
+</idea-plugin>
