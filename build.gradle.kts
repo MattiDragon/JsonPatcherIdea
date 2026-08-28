@@ -11,6 +11,11 @@ val languageServerConfiguration = configurations.register("languageServer") {
     isCanBeResolved = true
     isTransitive = false
 }
+val syntaxFilesConfiguration = configurations.register("syntaxFiles") {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+    isTransitive = false
+}
 
 repositories {
     mavenLocal()
@@ -18,6 +23,21 @@ repositories {
         content {
             includeGroupAndSubgroups("dev.mattidragon")
             includeGroupAndSubgroups("com.github")
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            ivy("https://raw.githubusercontent.com/MattiDragon/JsonPatcherCode") {
+                patternLayout {
+                    artifact("[revision]/syntaxes/[module].[ext]")
+                }
+                metadataSources {
+                    artifact()
+                }
+            }
+        }
+        filter {
+            includeGroup("jsonpatchercode.syntaxes")
         }
     }
     mavenCentral()
@@ -32,6 +52,8 @@ dependencies {
 
     languageServerConfiguration("dev.mattidragon.jsonpatcher:JsonPatcher-Lang-Server:2.0.0-beta.9:all")
 
+    syntaxFilesConfiguration("jsonpatchercode.syntaxes:jsonpatcher.tmLanguage:ffd954a@json")
+
     // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
         intellijIdea("2026.2.0.1")
@@ -44,6 +66,11 @@ dependencies {
 tasks.processResources {
     from(languageServerConfiguration.get().singleFile) {
         rename { "server.jar" }
+    }
+
+    from(syntaxFilesConfiguration.get()) {
+        into("textmate/syntaxes")
+        rename { it.replaceAfterLast(".tmLanguage", ".json") }
     }
 }
 tasks.patchChangelog {
