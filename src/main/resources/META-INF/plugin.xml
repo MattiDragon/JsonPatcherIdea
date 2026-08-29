@@ -12,6 +12,7 @@
 
         This plugin is fairly minimal and mostly works by integrating the existing language server as well as
         existing syntax highlighting grammars. This plugin only supports v2 of JsonPatcher; v1 support is not planned.
+        The language server is bundled with the plugin and runs in another copy of the same JVM used by the parent IntelliJ instance.
 
         <h3>Key features</h3>
         <ul>
@@ -38,6 +39,11 @@
         <fileType name="JsonPatcher" language="JsonPatcher" extensions="jsonpatch"
                   implementationClass="dev.mattidragon.jsonpatcheridea.JsonPatcherFileType"/>
         <textmate.bundleProvider implementation="dev.mattidragon.jsonpatcheridea.JsonPatcherTextMateBundleProvider"/>
+        <projectConfigurable instance="dev.mattidragon.jsonpatcheridea.JsonPatcherConfigurable"
+                             parentId="language"
+                             id="dev.mattidragon.jsonpatcheridea.JsonPatcherConfigurable"
+                             bundle="messages.JsonPatcherMessageBundle"
+                             key="settings.jsonpatcher.display_name"/>
     </extensions>
 
 </idea-plugin>
