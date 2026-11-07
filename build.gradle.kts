@@ -52,7 +52,7 @@ dependencies {
 
     languageServerConfiguration("dev.mattidragon.jsonpatcher:JsonPatcher-Lang-Server:2.0.0-beta.9:all")
 
-    syntaxFilesConfiguration("jsonpatchercode.syntaxes:jsonpatcher.tmLanguage:ffd954a@json")
+    syntaxFilesConfiguration("jsonpatchercode.syntaxes:jsonpatcher.tmLanguage:fd8a478@json")
 
     // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {

@@ -3,13 +3,18 @@ package dev.mattidragon.jsonpatcheridea
 import com.google.gson.JsonObject
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.process.BaseProcessHandler
+import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
+import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.SystemInfo
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.*
+import com.intellij.platform.lsp.api.customization.LspCustomization
+import com.intellij.platform.lsp.api.customization.LspSemanticTokensSupport
 import com.intellij.platform.lsp.api.lsWidget.LspClientWidgetItem
 import org.eclipse.lsp4j.DidChangeConfigurationParams
 import org.eclipse.lsp4j.InitializeResult
+import org.eclipse.lsp4j.SemanticTokenTypes
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -54,6 +59,21 @@ private class JsonPatcherLspClientDescriptor(project: Project) : ProjectWideLspC
 
                     server.workspaceService.didChangeConfiguration(DidChangeConfigurationParams(rootJson))
                 }
+            }
+        }
+    }
+
+    override val lspCustomization = object : LspCustomization() {
+        override val semanticTokensCustomizer = object : LspSemanticTokensSupport() {
+            override fun getTextAttributesKey(
+                tokenType: String,
+                modifiers: List<String>
+            ): TextAttributesKey? {
+                if (tokenType == SemanticTokenTypes.Decorator) {
+                    return DefaultLanguageHighlighterColors.METADATA
+                }
+
+                return super.getTextAttributesKey(tokenType, modifiers)
             }
         }
     }
