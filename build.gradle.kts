@@ -18,7 +18,7 @@ val syntaxFilesConfiguration = configurations.register("syntaxFiles") {
 }
 
 repositories {
-    mavenLocal()
+    //mavenLocal()
     maven("https://jitpack.io") {
         content {
             includeGroupAndSubgroups("dev.mattidragon")
@@ -50,7 +50,7 @@ repositories {
 dependencies {
     testImplementation(libs.junit)
 
-    languageServerConfiguration("dev.mattidragon.jsonpatcher:JsonPatcher-Lang-Server:2.0.0-beta.9:all")
+    languageServerConfiguration("dev.mattidragon.JsonPatcherLang:JsonPatcher-Lang-Server:2.0.0-beta.10:all")
 
     syntaxFilesConfiguration("jsonpatchercode.syntaxes:jsonpatcher.tmLanguage:fd8a478@json")
 
