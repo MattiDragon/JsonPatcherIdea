@@ -7,6 +7,7 @@ import com.intellij.openapi.components.Storage
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
+import com.intellij.util.xmlb.annotations.Property
 
 
 @Service(Service.Level.PROJECT)
@@ -20,6 +21,7 @@ class JsonPatcherSettings : PersistentStateComponent<JsonPatcherSettings> {
     var useCustomServer = false
     var serverLocation: String = ""
 
+    @Property
     val serverOptions = ServerOptions()
 
     data class ServerOptions(

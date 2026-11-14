@@ -115,4 +115,14 @@ private class JsonPatcherLspClientDescriptor(project: Project) : ProjectWideLspC
 
         return GeneralCommandLine(args)
     }
+
+    override fun findFileByUri(fileUri: String): VirtualFile? {
+        // By default, IntelliJ logs a warning and returns null for unknown schemes,
+        // we return null directly, because we know that the LSP server will send us the content
+        if (fileUri.startsWith("jsonpatcher-lsp://")) {
+            return null
+        }
+
+        return super.findFileByUri(fileUri)
+    }
 }

@@ -96,7 +96,7 @@ class JsonPatcherConfigurable(private val project: Project) : Configurable {
         private val table = JBTable(tableModel)
 
         init {
-            table.selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
+            table.selectionModel.selectionMode = ListSelectionModel.SINGLE_SELECTION
             table.setShowGrid(false)
 
             table.tableHeader.isVisible = false
@@ -134,7 +134,7 @@ class JsonPatcherConfigurable(private val project: Project) : Configurable {
         }
 
         fun setOptions(opts: List<String>) {
-            tableModel.setRowCount(0)
+            tableModel.rowCount = 0
             opts.forEach { tableModel.addRow(arrayOf(it)) }
         }
 
